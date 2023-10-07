@@ -13,11 +13,7 @@ module TagAuth
       end
 
       def migration_path
-        if Rails.version >= '5.0.3'
-          db_migrate_path
-        else
-          @migration_path ||= File.join('db', 'migrate')
-        end
+        File.join('db', 'migrate')
       end
 
       def migration_version
