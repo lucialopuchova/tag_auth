@@ -5,6 +5,8 @@ module TagAuth
     class TagAuthGenerator < Rails::Generators::NamedBase
       include Rails::Generators::Migration
 
+      source_root File.expand_path('../templates', __FILE__)
+
       desc 'Generates a migration modifying a table with the given NAME which' \
            "adds a new column for storing user's tag value."
 
