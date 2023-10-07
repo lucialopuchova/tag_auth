@@ -2,7 +2,7 @@ require 'rails/generators/active_record'
 
 module TagAuth
   module Generators
-    class TagAuthGenerator < Rails::Generators::Base
+    class TagAuthGenerator < Rails::Generators::NamedBase
       include Rails::Generators::Migration
 
       desc 'Generates a migration modifying a table with the given NAME which' \
