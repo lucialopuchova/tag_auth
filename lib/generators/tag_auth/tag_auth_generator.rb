@@ -1,10 +1,6 @@
-require 'rails/generators/active_record'
-
 module TagAuth
   module Generators
-    class TagAuthGenerator < Rails::Generators::NamedBase
-      include Rails::Generators::Migration
-
+    class TagAuthGenerator < ActiveRecord::Generators::Base
       source_root File.expand_path('../templates', __FILE__)
 
       desc 'Generates a migration modifying a table with the given NAME which' \
