@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-# Specify your gem's dependencies in tag_auth.gemspec
 gemspec
 
-gem "rake", "~> 13.0"
+gem 'rake', '~> 13.0'
+gem 'rubocop', '~> 1.21'
 
-gem "rspec", "~> 3.0"
-
-gem "rubocop", "~> 1.21"
+group :test, :development do
+  gem 'rspec-rails'
+  gem "generator_spec"
+end

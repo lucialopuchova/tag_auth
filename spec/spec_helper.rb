@@ -1,6 +1,7 @@
-# frozen_string_literal: true
-
-require "tag_auth"
+require 'tag_auth'
+require 'rspec'
+require 'generator_spec'
+require 'rails/generators'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
