@@ -13,6 +13,10 @@ module TagAuth
         migration_template 'add_tag_column_migration.rb.erb', "#{migration_path}/add_auth_tag_to_#{file_path.pluralize}.rb", migration_version: migration_version
       end
 
+      def copy_one_time_tokens_migration
+        migration_template 'create_model_one_time_tokens.rb.erb', "#{migration_path}/create_#{file_path}_one_time_tokens.rb", migration_version: migration_version
+      end
+
       def migration_path
         File.join('db', 'migrate')
       end
