@@ -2,7 +2,7 @@ require 'rails/generators/active_record'
 
 module TagAuth
   module Generators
-    class ControllerGenerator < ActiveRecord::Generators::Base
+    class ControllerGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
       desc 'Generates a controller responsible for creating one time tokens' \
