@@ -16,7 +16,7 @@ module TagAuth
         @scope_prefix = scope.blank? ? 'Users' : "#{scope.camelize}::"
 
         template 'tag_auth_tokens_controller.rb.erb',
-                 "app/controllers/#{scope}/tag_auth_token_controller.rb"
+                 "app/controllers/#{scope}/tag_auth_tokens_controller.rb"
 
       end
 
