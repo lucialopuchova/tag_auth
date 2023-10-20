@@ -4,7 +4,7 @@ require 'rails/version'
 module TagAuth
   module Generators
     class TagAuthGenerator < ActiveRecord::Generators::Base
-      source_root File.expand_path('../templates', __FILE__)
+      source_root File.expand_path('templates', __dir__)
 
       desc 'Generates a migration modifying a table with the given NAME which' \
            "adds a new column for storing user's tag value."
@@ -26,7 +26,6 @@ module TagAuth
 
         "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
       end
-
     end
   end
 end
