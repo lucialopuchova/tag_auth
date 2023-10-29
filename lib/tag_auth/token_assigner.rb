@@ -24,7 +24,7 @@ module TagAuth
     end
 
     def token_suitable?(token)
-      @model_instance.class.where(authentication_token: token).exists?
+      @model_instance.class.where(authentication_token: token).empty?
     end
   end
 end
