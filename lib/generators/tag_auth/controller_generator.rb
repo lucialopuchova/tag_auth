@@ -23,8 +23,10 @@ module TagAuth
       end
 
       def add_routes
-        route "get '/tag_auth/sign_in', to: 'tag_auth#new'"
-        route "post '/tag_auth/sign_in', to: 'tag_auth#create'"
+        route "scope module: :#{scope} do"
+        route "  get 'tag_auth/sign_in', to: 'tag_auth#new'"
+        route "  post 'tag_auth/sign_in', to: 'tag_auth#create'"
+        route "end"
       end
     end
   end
