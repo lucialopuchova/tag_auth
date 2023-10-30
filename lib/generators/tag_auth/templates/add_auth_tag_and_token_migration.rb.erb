@@ -11,5 +11,10 @@ class AddAuthTagAndTokenTo<%= table_name.camelize %> < ActiveRecord::Migration<%
       add_column :<%= table_name %>, :authentication_token, :string, limit: 30
       add_index :<%= table_name %>, :authentication_token, algorithm: :concurrently, unique: true
     end
+
+    unless column_exists?(:<%= table_name %>, :authentication_token_valid_to)
+      add_column :<%= table_name %>, :authentication_token_valid_to, :datetime
+      add_index :<%= table_name %>, :authentication_token_valid_to, algorithm: :concurrently, unique: true
+    end
   end
 end
