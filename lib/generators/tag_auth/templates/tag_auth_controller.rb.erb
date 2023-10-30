@@ -4,7 +4,8 @@ module <%= @scope %>
   class TagAuthController < ApplicationController
 
     # protect_from_forgery with: :null_session, prepend: true
-    # skip_before_action :authenticate_user!
+    # skip_before_action :authenticate_<%= @instance %>_from_token!
+    # skip_before_action :authenticate_<%= @instance %>!
 
     # GET /tag_auth/sign_in
     # def new
