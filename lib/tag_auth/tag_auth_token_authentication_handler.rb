@@ -6,7 +6,7 @@ module TagAuthTokenAuthenticationHandler
   end
 
   def token_not_expired?(record)
-    return false unless record.authentication_token_valid_to
+    return false unless record&.authentication_token_valid_to
 
     Time.now <= record.authentication_token_valid_to
   end
