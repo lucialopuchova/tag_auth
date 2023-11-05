@@ -3,13 +3,16 @@ require 'devise'
 module TagAuth
   class TokenAssigner
 
+    TOKEN_VALIDITY_DURATION = 5.minutes.freeze
+
     def initialize(model_instance)
       @model_instance = model_instance
     end
 
     def assign_token
       token = generate_token
-      @model_instance.update(authentication_token: token)
+      @model_instance.update(authentication_token: token, 
+                             authentication_token_valid_to: DateTime.current + TOKEN_VALIDITY_DURATION)
 
       token
     end
