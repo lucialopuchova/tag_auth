@@ -2,11 +2,10 @@ require 'rails/generators/active_record'
 
 module TagAuth
   module Generators
-    class ControllerGenerator < Rails::Generators::Base
+    class TagAuthenticableGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
-      desc 'Generates a controller responsible for creating one time sign in tokens' \
-      "based on model's authentication tag"
+      desc 'Generates a Devise strategy for authenticating a user by tag'
 
       argument :scope, required: true,
                        desc: 'The scope in which controller will be created, e.g. users.' \
@@ -17,12 +16,8 @@ module TagAuth
         @instance = scope.singularize
         @scope = scope.blank? ? 'Users' : scope.camelize
 
-        template 'tag_auth_controller.rb.erb',
-                 'app/controllers/tag_auth_controller.rb'
-      end
-
-      def add_routes
-        route 'resources :tag_auth_tokens, only: [:index, :create]'
+        template 'tag_authenticable.rb.erb',
+                 'config/initializers/tag_authenticable.rb'
       end
     end
   end

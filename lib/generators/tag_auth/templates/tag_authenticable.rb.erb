@@ -1,0 +1,27 @@
+module Devise
+  module Strategies
+    class TagAuthenticable < Authenticatable
+      def valid?
+        params[:<%= @instance %>].present? && params[:<%= @instance %>][:auth_tag].present?
+      end
+
+      def authenticate!
+        <%= @instance %> = <%= @model %>.unscoped.find_by(auth_tag: params[:<%= @instance %>][:auth_tag].to_s.downcase.strip)
+
+        if <%= @instance %>.present?
+          remember_me(<%= @instance %>)
+
+          return success!(<%= @instance %>)
+        end
+
+        fail!
+      end
+    end
+  end
+end
+
+Warden::Strategies.add(:tag_authenticable, Devise::Strategies::TagAuthenticable)
+
+Warden::Manager.before_logout do |record, _warden, _options|
+  record.invalidate_session! if record.respond_to?(:invalidate_session!)
+end
