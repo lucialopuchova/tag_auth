@@ -18,15 +18,11 @@ module TagAuth
         @scope = scope.blank? ? 'Users' : scope.camelize
 
         template 'tag_auth_controller.rb.erb',
-                 "app/controllers/#{scope}/tag_auth_controller.rb"
-
+                 'app/controllers/tag_auth_controller.rb'
       end
 
       def add_routes
-        route "scope module: :#{scope} do"
-        route "  get 'tag_auth/sign_in', to: 'tag_auth#new'"
-        route "  post 'tag_auth/sign_in', to: 'tag_auth#create'"
-        route "end"
+        route 'resources :tag_auth_tokens, only: [:index, :create]'
       end
     end
   end

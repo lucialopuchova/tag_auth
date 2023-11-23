@@ -1,36 +1,48 @@
+require 'tag_auth/tag_auth_token_authentication_handler'
 require 'tag_auth/token_assigner'
 
-module <%= @scope %>
-  class TagAuthController < ApplicationController
+class TagAuthTokensController < ApplicationController
+#  skip_before_action :verify_authenticity_token
+#  skip_before_action :authenticate_<%= @instance %>!
 
-    # protect_from_forgery with: :null_session, prepend: true
-    # skip_before_action :authenticate_<%= @instance %>_from_token!
-    # skip_before_action :authenticate_<%= @instance %>!
+#  prepend TagAuthTokenAuthenticationHandler
+#  acts_as_token_authentication_handler_for <%= @instance %>, fallback: :none
 
-    # GET /tag_auth/sign_in
-    # def new
-    #  TODO: insert the logic for rendering your sign in view
-    #  raise NotImplementedError
-    # end
+#  # GET /tag_auth_tokens
+#  def index
+#   # TODO: insert the logic for fallback when user is not authenticated
+#    redirect_to root_path
+#  end
 
-    # POST /tag_auth/sign_in
-    # def create
-    #  @<%= @instance %> = <%= @model %>.find_by(auth_tag: <%= @instance %>_params[:auth_tag])
+#  # POST /tag_auth_tokens
+#  def create
+#    # TODO: update to conform your needs
+#    if <%= @instance %>_params[:auth_tag].present?
+#      @<%= @instance %> = <%= @model %>.find_by(auth_tag: <%= @instance %>_params[:auth_tag])
+#    end
 
-    #  if @<%= @instance %>
-    #    token_assigner = TagAuth::TokenAssigner.new(@<%= @instance %>)
-    #    token = token_assigner.assign_token
+#    if @<%= @instance %>
+#      token_assigner = TagAuth::TokenAssigner.new(@<%= @instance %>)
+#      token = token_assigner.assign_token
 
-    #    render json: { success: true, token: token, email: @<%= @instance %>.email }
-    #  else
-    #    render :new, status: :not_found
-    #  end
-    # end
+#      render json: { token: token, email: @<%= @instance %>.email }, status: :ok
+#    else
+#      render json: { error: 'Not found' }, status: :not_found
+#    end
+#  end
 
-    # private
+#  private
 
-    # def <%= @instance %>_params
-    #  params.require(:<%= @instance %>).permit(:auth_tag)
-    #end
-  end
+#  def <%= @instance %>_params
+#    params.require(:<%= @instance %>).permit(:auth_tag)
+#  end
+
+#  def after_successful_token_authentication
+#     renew_authentication_token!
+#     redirect_to after_sign_in_path_for(<%= @model %>)
+#  end
+
+#  def renew_authentication_token!
+#    @<%= @instance %>.update(authentication_token: nil, authentication_token_valid_to: nil)
+#  end
 end
