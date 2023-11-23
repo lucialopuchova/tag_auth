@@ -1,7 +1,7 @@
 class AddAuthTagAndTokenTo<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
   disable_ddl_transaction!
 
-  def change
+  def up
     unless column_exists?(:<%= table_name %>, :auth_tag)
       add_column :<%= table_name %>, :auth_tag, :string
       add_index :<%= table_name %>, :auth_tag, algorithm: :concurrently, unique: true
@@ -15,6 +15,18 @@ class AddAuthTagAndTokenTo<%= table_name.camelize %> < ActiveRecord::Migration<%
     unless column_exists?(:<%= table_name %>, :authentication_token_valid_to)
       add_column :<%= table_name %>, :authentication_token_valid_to, :datetime
       add_index :<%= table_name %>, :authentication_token_valid_to, algorithm: :concurrently, unique: true
+    end
+  end
+
+  def down
+    safety_assured do
+      remove_column :<%= table_name %>, :auth_tag
+
+      remove_column :<%= table_name %>, :authentication_token
+      remove_index :<%= table_name %>, :authentication_token if index_exists? :<%= table_name %>, :authentication_token
+
+      remove_column :<%= table_name %>, :authentication_token_valid_to
+      remove_index :<%= table_name %>, :authentication_token_valid_to if index_exists? :<%= table_name %>, :authentication_token_valid_to
     end
   end
 end
