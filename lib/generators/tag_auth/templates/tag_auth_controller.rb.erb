@@ -1,68 +1,69 @@
 require 'tag_auth/tag_auth_token_authentication_handler'
 require 'tag_auth/token_assigner'
+require 'tag_auth/encryption_helper'
 
 class TagAuthTokensController < ApplicationController
-#  skip_before_action :verify_authenticity_token
-#  skip_before_action :authenticate_<%= @instance %>!
+#   skip_before_action :verify_authenticity_token
+#   skip_before_action :authenticate_<%= @instance %>!
 
-#  before_action :decrypt_params, only: [:index]
-#  before_action :register_as_tag_auth_attempt, only: [:index]
+#   before_action :decrypt_params, only: [:index]
+#   before_action :register_as_tag_auth_attempt, only: [:index]
 
-#  prepend TagAuthTokenAuthenticationHandler
-#  acts_as_token_authentication_handler_for <%= @instance %>, fallback: :none
+#   prepend TagAuthTokenAuthenticationHandler
+#   acts_as_token_authentication_handler_for <%= @instance %>, fallback: :none
 
-#  # GET /tag_auth_tokens
-#  def index
-#   # TODO: insert the logic for fallback when user is not authenticated
-#    redirect_to root_path
-#  end
+#   # GET /tag_auth_tokens
+#   def index
+#    # TODO: insert the logic for fallback when user is not authenticated
+#     redirect_to root_path
+#   end
 
-#  # POST /tag_auth_tokens
-#  def create
-#    # TODO: update to conform your needs
-#    if <%= @instance %>_params[:auth_tag].present?
-#      @<%= @instance %> = <%= @model %>.find_by(auth_tag: <%= @instance %>_params[:auth_tag])
-#    end
+#   # POST /tag_auth_tokens
+#   def create
+#     # TODO: update to conform your needs
+#     if <%= @instance %>_params[:auth_tag].present?
+#       @<%= @instance %> = <%= @model %>.find_by(auth_tag: <%= @instance %>_params[:auth_tag])
+#     end
 
-#    if @<%= @instance %>
-#      token_assigner = TagAuth::TokenAssigner.new(@<%= @instance %>)
-#      token = token_assigner.assign_token
+#     if @<%= @instance %>
+#       token_assigner = TagAuth::TokenAssigner.new(@<%= @instance %>)
+#       token = token_assigner.assign_token
 
-#      response_string = { token: token, email: @user.email }.to_json
+#       response_string = { token: token, email: @<%= @instance %>.email }.to_json
 
-#      encrypted_token = EncryptionHelper.encrypt(response_string)
-#      uri_token = URI.encode_www_form_component(encrypted_token)
+#       encrypted_token = EncryptionHelper.encrypt(response_string)
+#       uri_token = URI.encode_www_form_component(encrypted_token)
 
-#      render json: { token: uri_token, test: encrypted_token}, status: :ok
-#    else
-#      render json: { error: 'Not found' }, status: :not_found
-#    end
-#  end
+#       render json: { token: uri_token, test: encrypted_token}, status: :ok
+#     else
+#       render json: { error: 'Not found' }, status: :not_found
+#     end
+#   end
 
-#  private
+#   private
 
-#  def <%= @instance %>_params
-#    params.require(:<%= @instance %>).permit(:auth_tag)
-#  end
+#   def <%= @instance %>_params
+#     params.require(:<%= @instance %>).permit(:auth_tag)
+#   end
 
-#  def after_successful_token_authentication
-#     renew_authentication_token!
-#     redirect_to after_sign_in_path_for(<%= @model %>)
-#  end
+#   def after_successful_token_authentication
+#      renew_authentication_token!
+#      redirect_to after_sign_in_path_for(<%= @model %>)
+#   end
 
-#  def renew_authentication_token!
-#    @<%= @instance %>.update(authentication_token: nil, authentication_token_valid_to: nil)
-#  end
+#   def renew_authentication_token!
+#     @<%= @instance %>.update(authentication_token: nil, authentication_token_valid_to: nil)
+#   end
 
-#  def decrypt_params
-#    decrypted_params_string = TagAuth::EncryptionHelper.decrypt(params[:token])
-#    decrypted_params = JSON.parse(decrypted_params_string).with_indifferent_access
-#    params[:<%= @instance %>_token] = decrypted_params[:token]
-#    params[:<%= @instance %>_email] = decrypted_params[:email]
-#  end
+#   def decrypt_params
+#     decrypted_params_string = TagAuth::EncryptionHelper.decrypt(params[:token])
+#     decrypted_params = JSON.parse(decrypted_params_string).with_indifferent_access
+#     params[:<%= @instance %>_token] = decrypted_params[:token]
+#     params[:<%= @instance %>_email] = decrypted_params[:email]
+#   end
 
-#  def register_as_tag_auth_attempt
-#    # To register this authentication attempt as tag authentication, e.g. for AuthTrail
-#    request.env['warden'].winning_strategy = Devise::Strategies::TagAuthenticable.new(request.env['warden'].env, :user)
-#  end
+#   def register_as_tag_auth_attempt
+#     # To register this authentication attempt as tag authentication, e.g. for AuthTrail
+#     request.env['warden'].winning_strategy = Devise::Strategies::TagAuthenticable.new(request.env['warden'].env, :<%= @instance %>)
+#   end
 end
