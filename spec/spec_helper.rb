@@ -1,5 +1,4 @@
 require 'tag_auth'
-require 'rspec'
 require 'generator_spec'
 require 'rails/generators'
 

@@ -1,34 +1,54 @@
-module EncryptionHelper
-  require 'openssl'
-  require 'base64'
+module TagAuth
+  class EncryptionHelper
+    require 'openssl'
+    require 'base64'
 
-  ALGORITHM = Rails.application.config.tag_auth_encryption_algorithm.freeze
+    def initialize(algorithm, key)
+      raise ArgumentError, 'Invalid algorithm' unless valid_algorithm?(algorithm.downcase)
+      raise ArgumentError, 'Invalid key length' unless valid_key?(key, algorithm)
 
-  def self.encrypt(data)
-    cipher = OpenSSL::Cipher.new(ALGORITHM)
-    cipher.encrypt
-    cipher.key = Rails.application.config.tag_auth_encryption_key
-    iv = cipher.random_iv
+      @algorithm = algorithm.downcase
+      @key = key
+    end
 
-    encrypted_data = cipher.update(data) + cipher.final
+    def encrypt(data)
+      cipher = OpenSSL::Cipher.new(@algorithm)
+      cipher.encrypt
+      cipher.key = @key
+      iv = cipher.random_iv
 
-    Base64.encode64(encrypted_data + iv)
-  end
+      encrypted_data = cipher.update(data) + cipher.final
 
-  def self.decrypt(encrypted_string)
-    decipher = OpenSSL::Cipher.new(ALGORITHM)
-    decipher.decrypt
-    decipher.key = Rails.application.config.tag_auth_encryption_key
+      Base64.encode64(encrypted_data + iv)
+    end
 
-    decoded_data = Base64.decode64(encrypted_string)
+    def decrypt(encrypted_string)
+      decipher = OpenSSL::Cipher.new(@algorithm)
+      decipher.decrypt
+      decipher.key = @key
 
-    iv_len = decipher.iv_len
-    data_len = decoded_data.length - iv_len
+      decoded_data = Base64.decode64(encrypted_string)
 
-    encrypted_data = decoded_data[0, data_len]
-    iv = decoded_data[data_len, iv_len]
+      iv_len = decipher.iv_len
+      data_len = decoded_data.length - iv_len
 
-    decipher.iv = iv
-    decipher.update(encrypted_data) + decipher.final
+      encrypted_data = decoded_data[0, data_len]
+      iv = decoded_data[data_len, iv_len]
+
+      decipher.iv = iv
+      decipher.update(encrypted_data) + decipher.final
+    end
+
+    private
+
+    def valid_algorithm?(algorithm)
+      OpenSSL::Cipher.ciphers.include?(algorithm)
+    end
+
+    def valid_key?(key, algorithm)
+      cipher = OpenSSL::Cipher.new(algorithm)
+      key_length = key.bytesize * 8 # Convert byte length to bit length
+      key_length == cipher.key_len * 8
+    end
   end
 end

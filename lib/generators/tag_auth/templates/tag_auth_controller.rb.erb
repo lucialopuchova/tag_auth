@@ -6,6 +6,7 @@ class TagAuthTokensController < ApplicationController
 #   skip_before_action :verify_authenticity_token
 #   skip_before_action :authenticate_<%= @instance %>!
 
+#   before_action :set_encryption_helper
 #   before_action :decrypt_params, only: [:index]
 #   before_action :register_as_tag_auth_attempt, only: [:index]
 
@@ -31,7 +32,7 @@ class TagAuthTokensController < ApplicationController
 
 #       response_string = { token: token, email: @<%= @instance %>.email }.to_json
 
-#       encrypted_token = EncryptionHelper.encrypt(response_string)
+#       encrypted_token = @encryption_helper.encrypt(response_string)
 #       uri_token = URI.encode_www_form_component(encrypted_token)
 
 #       render json: { token: uri_token, test: encrypted_token}, status: :ok
@@ -56,7 +57,7 @@ class TagAuthTokensController < ApplicationController
 #   end
 
 #   def decrypt_params
-#     decrypted_params_string = TagAuth::EncryptionHelper.decrypt(params[:token])
+#     decrypted_params_string = @encryption_helper.decrypt(params[:token])
 #     decrypted_params = JSON.parse(decrypted_params_string).with_indifferent_access
 #     params[:<%= @instance %>_token] = decrypted_params[:token]
 #     params[:<%= @instance %>_email] = decrypted_params[:email]
@@ -65,5 +66,9 @@ class TagAuthTokensController < ApplicationController
 #   def register_as_tag_auth_attempt
 #     # To register this authentication attempt as tag authentication, e.g. for AuthTrail
 #     request.env['warden'].winning_strategy = Devise::Strategies::TagAuthenticable.new(request.env['warden'].env, :<%= @instance %>)
+#   end
+
+#   def set_encryption_helper
+#     @encryption_helper = TagAuth::EncryptionHelper.new(Rails.application.config.tag_auth_encryption_algorithm, Rails.application.config.tag_auth_encryption_key)
 #   end
 end
