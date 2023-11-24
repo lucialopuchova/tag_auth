@@ -24,6 +24,11 @@ module TagAuth
       def add_routes
         route 'resources :tag_auth_tokens, only: [:index, :create]'
       end
+
+      def create_initializer
+        template 'tag_auth_initializer.rb',
+                 'config/initializers/tag_auth_initializer.rb'
+      end
     end
   end
 end
