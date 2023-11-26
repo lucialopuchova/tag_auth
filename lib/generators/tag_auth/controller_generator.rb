@@ -18,7 +18,7 @@ module TagAuth
         @scope = scope.blank? ? 'Users' : scope.camelize
 
         template 'tag_auth_controller.rb.erb',
-                 'app/controllers/tag_auth_controller.rb'
+                 'app/controllers/tag_auth_tokens_controller.rb'
       end
 
       def add_routes

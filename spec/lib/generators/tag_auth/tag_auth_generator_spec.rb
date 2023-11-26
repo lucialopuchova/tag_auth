@@ -6,7 +6,7 @@ RSpec.describe TagAuth::Generators::TagAuthGenerator, type: :generator do
   destination File.expand_path('../../../tmp', __dir__)
 
   let(:timestamp_regex) { /\d{14}/ }
-  let(:migration_name) { "add_auth_tag_to_#{@table_name}" }
+  let(:migration_name) { "add_auth_tag_and_token_to_#{@table_name}" }
 
   before(:all) do
     prepare_destination
