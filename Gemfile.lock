@@ -3,6 +3,7 @@ PATH
   specs:
     tag_auth (0.1.0)
       activerecord
+      devise (>= 3.2)
       rake (~> 13.0)
       rubocop (~> 1.21)
       simple_token_authentication (~> 1.0)
