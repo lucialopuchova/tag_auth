@@ -35,7 +35,7 @@ class TagAuthTokensController < ApplicationController
 #       encrypted_token = @encryption_helper.encrypt(response_string)
 #       uri_token = URI.encode_www_form_component(encrypted_token)
 
-#       render json: { token: uri_token, test: encrypted_token}, status: :ok
+#       render json: { token: uri_token }, status: :ok
 #     else
 #       render json: { error: 'Not found' }, status: :not_found
 #     end
