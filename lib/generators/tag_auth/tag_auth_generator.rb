@@ -6,7 +6,7 @@ module TagAuth
     class TagAuthGenerator < ActiveRecord::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
-      desc 'Generates a migration modifying a table with the given NAME which' \
+      desc 'Generates a migration modifying a table with the given NAME which ' \
            "adds two new columns for storing user's tag value and a one time authentication token."
 
       def copy_tag_auth_migration
