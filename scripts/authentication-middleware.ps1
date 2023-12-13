@@ -25,7 +25,7 @@ try {
                 } | ConvertTo-Json
 
                 # TODO add your URI
-                $uri = "https://some-example-uri.com"
+                $uri = "https://some-example-uri.com/tag_auth_tokens"
                 $webResponse = Invoke-WebRequest -Method Post -Uri $uri -Body $body -ContentType "application/json"
                 $response = $webResponse.Content | ConvertFrom-Json
 
