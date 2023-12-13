@@ -25,12 +25,12 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activerecord'
+  spec.add_dependency 'activerecord', '>= 4.2.0'
   spec.add_dependency 'devise', '>= 3.2'
   spec.add_dependency 'rake', '~> 13.0'
   spec.add_dependency 'rubocop', '~> 1.21'
   spec.add_dependency 'simple_token_authentication', '~> 1.0'
 
-  spec.add_development_dependency 'generator_spec'
-  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'generator_spec', '>= 0.1.0'
+  spec.add_development_dependency 'rspec', '~> 3.12'
 end

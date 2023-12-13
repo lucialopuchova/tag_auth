@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     tag_auth (0.1.0)
-      activerecord
+      activerecord (>= 4.2.0)
       devise (>= 3.2)
       rake (~> 13.0)
       rubocop (~> 1.21)
@@ -161,8 +161,8 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
-  generator_spec
-  rspec
+  generator_spec (>= 0.1.0)
+  rspec (~> 3.12)
   tag_auth!
 
 BUNDLED WITH
