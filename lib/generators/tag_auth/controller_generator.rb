@@ -14,7 +14,7 @@ module TagAuth
 
       def create_controller
         @model = scope.camelize.singularize
-        @instance = scope.singularize
+        @instance = scope.downcase.singularize
         @scope = scope.blank? ? 'Users' : scope.camelize
 
         template 'tag_auth_controller.rb.erb',
